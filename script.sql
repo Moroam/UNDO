@@ -70,7 +70,7 @@ set js=@js;
 END
 
 # restore one row - ONLY IF JSON IS OBJECT
-CREATE DEFINER=`root`@`%` PROCEDURE `restore_one_row`(tabschema varchar(255), id int)
+CREATE PROCEDURE `restore_one_row`(tabschema varchar(255), id int)
 BEGIN
 # ONLY FOR JSON OBJECT
 set @sql:=null;
