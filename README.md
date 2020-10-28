@@ -14,6 +14,6 @@ We need to use a universal structure for storing data about changes.
 This format is the well-known JSON.
 
 # Concept of proof
-/remark - is assumed that the tables have a key autoincrement field
+--remark - is assumed that the tables have a key autoincrement field
 1. table_product.sql - creating table with trigger, copying row befor update to json
 2. script.sql - script for bachuping to json and restore values
