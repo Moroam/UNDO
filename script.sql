@@ -27,20 +27,19 @@ END
 
 CREATE PROCEDURE `backup_row`(tabschema varchar(255), tabname varchar(255), id int, out idbackup int)
 BEGIN
-	declare cnt int;
-	declare js JSON;
+declare cnt int;
+declare js JSON;
     
-	call test.row_to_json(tabschema, tabname, id, js);
+call test.row_to_json(tabschema, tabname, id, js);
 
-	SELECT LAST_INSERT_ID(0) into cnt;
+SELECT LAST_INSERT_ID(0) into cnt;
 
-	insert into test.backup_json(`TABLE_NAME`, ROW_JSON)
-	values(tabname, js);
+insert into test.backup_json(`TABLE_NAME`, ROW_JSON)
+values(tabname, js);
 
-	select LAST_INSERT_ID() into cnt;
+select LAST_INSERT_ID() into cnt;
 
-	set idbackup = cnt;
-	
+set idbackup = cnt;
 END
 
 # copying row / rows to json
