@@ -91,14 +91,14 @@ DEALLOCATE PREPARE stmt;
 END
 
 # resore rows from json
-CREATE DEFINER=`root`@`%` PROCEDURE `restore_row`(tabschema  varchar(255), tabname varchar(255), id int)
+CREATE PROCEDURE `restore_row`(tabschema  varchar(255), tabname varchar(255), id int)
 BEGIN
 	
 set @sql:=null;
 select group_concat( COLUMN_NAME  order by ORDINAL_POSITION) into @sql
 from information_schema.`COLUMNS` 
 where TABLE_NAME = tabname and TABLE_SCHEMA = tabschema and EXTRA NOT LIKE '%VIRTUAL%';
-set @sql := concat('SELECT ', @sql, ' FROM JSON_TABLE(');
+set @sql := concat('REPLACE INTO `', tabschema,'`.`', tabname,'`(', @sql,') SELECT * FROM JSON_TABLE(');
 
 set @js:=null;
 select ROW_JSON into @js
